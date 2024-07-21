@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employee Pay Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      width: 50%;
+      margin: 40px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    .input-field {
+      width: 100%;
+      height: 30px;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    .button {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .button:hover {
+      background-color: #3e8e41;
+    }
+    .result {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Employee Pay Calculator</h2>
+    <form>
+      <label class="label" for="employee-name">Employee Name:</label>
+      <input type="text" id="employee-name" class="input-field">
+      <label class="label" for="hours-worked">Hours Worked:</label>
+      <input type="number" id="hours-worked" class="input-field">
+      <label class="label" for="rate-per-hour">Rate per Hour:</label>
+      <input type="number" id="rate-per-hour" class="input-field">
+      <button class="button" onclick="calculatePay()">Calculate Pay</button>
+    </form>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculatePay() {
+      const employeeName = document.getElementById("employee-name").value;
+      const hoursWorked = parseFloat(document.getElementById("hours-worked").value);
+      const ratePerHour = parseFloat(document.getElementById("rate-per-hour").value);
+
+      const basicPay = hoursWorked * ratePerHour;
+
+      let tax = 0;
+      if (basicPay > 50000) {
+        tax = basicPay * 0.20;
+      } else if (basicPay >= 20000 && basicPay <= 50000) {
+        tax = basicPay * 0.10;
+      }
+
+      const netPay = basicPay - tax;
+
+      const resultHTML = `
+        <p>Employee Name: ${employeeName}</p>
+        <p>Basic Pay: ${basicPay.toFixed(2)}</p>
+        <p>Tax: ${tax.toFixed(2)}</p>
+        <p>Net Pay: ${netPay.toFixed(2)}</p>
+      `;
+
+      document.getElementById("result").innerHTML = resultHTML;
+    }
+  </script>
+</body>
+</html>
